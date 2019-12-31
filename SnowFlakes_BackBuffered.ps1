@@ -121,19 +121,20 @@ try {
     }
 
     # animate flakes
+    $buffer_blueprint =  ' ' * [console]::WindowHeight * [console]::WindowWidth         # clean buffer blueprint
     $StopWatch = [System.Diagnostics.Stopwatch]::New()
     $StopWatch.Start()
     while ($true) {
 
         [console]::SetCursorPosition(0,0)                                               # Cursor to origin
-        $ca = [char[]](' ' * [console]::WindowHeight * [console]::WindowWidth)          # build clean buffer
+        $buffer = [char[]]$buffer_blueprint                                             # (re)init buffer
 
         foreach ($flake in $flakes) {                                                   # calculate new position for each flage
             $flake.NewPosition()
-            $ca[$flake.y*([console]::WindowWidth)+$flake.x] = $flake.Sign               # ... and draw in back buffer
+            $buffer[$flake.y*([console]::WindowWidth)+$flake.x] = $flake.Sign           # ... and draw in back buffer
         }
 
-        [console]::Write(([string]::New($ca)))                                          # output back buffer
+        [console]::Write(([string]::New($buffer)))                                      # output back buffer
 
 
         $Elapsed = $StopWatch.ElapsedMilliseconds                                       # calculate refresh time
