@@ -1,4 +1,4 @@
-# PS_SnowFlakes
+# SnowFlakes
 
 ## An xmas snowflake animation class experiment :-)
 
